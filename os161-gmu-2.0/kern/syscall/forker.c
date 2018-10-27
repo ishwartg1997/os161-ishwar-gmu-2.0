@@ -32,6 +32,7 @@ kfree(newtf);
 return address_error;
 }
 struct proc **new_proc=kmalloc(sizeof(struct proc*));
+//proclist_addtail((&curproc->proc_list),(*new_proc));
 process_error=proc_fork(new_proc);
 if(process_error)
 {

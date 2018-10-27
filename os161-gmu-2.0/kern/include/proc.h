@@ -57,7 +57,9 @@ struct proc {
 	struct vnode *p_cwd;		/* current working directory */
 	struct filetable *p_filetable;	/* table of open files */
 	bool is_zombie;
-	struct proc_list *proclist;
+	//struct proc_list *proclist;
+	struct proclist proc_list;
+	struct proclistnode t_listnode;
 	int pid;
 	//struct threaddarray children;
 	/* add more material here as needed */

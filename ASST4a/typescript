@@ -1,0 +1,117 @@
+Script started on Wednesday 17 October 2018 04:20:04 PM EDT
+[?1034hbash-4.2$ scr[K[Kys161 kernel
+sys161: System/161 release 2.0.2, compiled Feb  2 2015 11:24:13
+
+OS/161 base system version 2.0
+Copyright (c) 2000, 2001-2005, 2008-2011, 2013, 2014
+   President and Fellows of Harvard College.  All rights reserved.
+
+Put-your-group-name-here's system version 0 (ASST4a #62)
+
+4880k physical memory available
+Device probe...
+lamebus0 (system main bus)
+emu0 at lamebus0
+ltrace0 at lamebus0
+ltimer0 at lamebus0
+beep0 at ltimer0
+rtclock0 at ltimer0
+lrandom0 at lamebus0
+random0 at lrandom0
+lhd0 at lamebus0
+lhd1 at lamebus0
+lser0 at lamebus0
+con0 at lser0
+
+cpu0: MIPS/161 (System/161 2.x) features 0x0
+cpu1: MIPS/161 (System/161 2.x) features 0x0
+OS/161 kernel [? for menu]: p /testbin/forktest
+Operation took 0.000337160 seconds
+OS/161 kernel [? for menu]: (program name unknown): Starting. Expect this many:
+|----------------------------|
+001111222233232322Unknown syscall 4
+(Upnrkongorwanm  snyasmcea luln k4n
+own): waitpid: Function not implemented
+U33n3k33(pnroogrwnam  nsamye suncknalolw n4)
+:U n3known3 syscall3 4
+(progrUanmk nnoawmne  suynskcnaolwln )43
+3Un(kpnroowgnr asmy sncaamlel  u4n
+kUnnokwnno)w:n  (spyrsocgarlalm  4n
+ame unknown): w3(pUnrkongorwanm  snyasmcea luln k4n
+own): (program name unknown): wa(program name unknown): wa(program name unknown): w(program name unknown): wi(program name unknown): wa: pa3pidp itwaiaiidmitidttpaiipiitptp mspi miidtpmd: pididisad: is: : Function not implementedidtFunction not implemented
+Udn:k nFouwnnc tsiyons ncota ilmplle me4nt
+ed: Function not implementedmacFunction not implementedma(program name unknown): 
+
+: Function not implementedh
+Function not implemented
+
+Uwnakn
+o w(nt cstycsicta-lhl  h4 
+pi1,(program name unknown): w(-(- sd: Function not implemented
+U1n,k1n,oawinh os yss csatlplu l4h
+ohoid: d (program name unknown): wuluFunction not implemented
+belad d  -itbebe -1 pi) - d: -1)1)Function not implemented
+Uynok n o-w-nu rs y sycya lvlo o4u
+um (program name unknown): r r iswavmvm bit i iropis s ked: brbrn!Function not implemented
+
+ookk
+(program name unknown)eenn: C!!
+
+omplete.
+x 
+OS/161 kernel [? for menu]: sys161 tt1          l ?
+
+OS/161 kernel menu
+    [?o] Operations menu                [khgen] Next kernel heap generation 
+    [?t] Tests menu                     [khdump] Dump kernel heap           
+    [kh] Kernel heap stats              [q] Quit and shut down              
+
+Operation took 0.503972360 seconds
+OS/161 kernel [? for menu]: ?t
+
+OS/161 tests menu
+    [at]  Array test                    [sy1] Semaphore test                
+    [bt]  Bitmap test                   [sy2] Lock test             (1)     
+    [tlt] Threadlist test               [sy3] CV test               (1)     
+    [km1] Kernel malloc test            [sy4] CV test #2            (1)     
+    [km2] kmalloc stress test           [fs1] Filesystem test               
+    [km3] Large kmalloc test            [fs2] FS read stress                
+    [km4] Multipage kmalloc test        [fs3] FS write stress               
+    [tt1] Thread test 1                 [fs4] FS write stress 2             
+    [tt2] Thread test 2                 [fs5] FS long stress                
+    [tt3] Thread test 3                 [fs6] FS create stress              
+
+    (1) These tests will fail until you finish the synch assignment.
+
+Operation took 1.675947400 seconds
+OS/161 kernel [? for menu]: tt1
+Starting thread test...
+001234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567012345671234567
+Thread test done.
+Operation took 1.961852600 seconds
+OS/161 kernel [? for menu]: tt2
+Starting thread test 2...
+0123456745031267
+Thread test 2 done.
+Operation took 0.551783680 seconds
+OS/161 kernel [? for menu]: tt3
+Starting thread test 3 (5 [sleepalots], 2 {computes}, 1 waker)
+[3][0][1][4][2][3][1][4]{0: 206}{1: 124}[4][0][3][2][1][0][3][4]{0: 162}[1]{1: 8}[4][3][0][2][1][3]{0: 136}{1: 53}[3][1][0][2][0][2]{0: 144}{1: 202}[3][1][4][2][2][0][4][3][1]{0: 179}{1: 2}[3][2][0][4][1][4][2]{0: 236}{1: 194}[0][3][1][2][4][2]{0: 109}{1: 231}[3][1][0][4][2][4][3][0][1]{0: 73}[4]{1: 93}[2][3][1][4][0][0][1][2]{0: 197}{1: 145}[2][0][4][3][1][2][4][2]{0: 186}[4][3][0][1]{1: 218}[2][0][3][4][1][2][0][3][4][1][2][0][3][4][1][0][3][1][0]
+Thread test 3 done
+Operation took 6.853841400 seconds
+OS/161 kernel [? for menu]: WWWWWWWWWWWWWWWWWWWWWWWWW33333333333333333333333333333333333333                                                               EX  ex  exit
+Shutting down.
+The system is halted.
+cpu0: offline.
+sys161: 6346517896 cycles (457426278 run, 5889091618 global-idle)
+sys161:   cpu0: 237869841 kern, 329278 user, 9508694 idle; 84438 ll, 84438/0 sc, 264507 sync
+sys161:   cpu1: 188305034 kern, 208360 user, 59194419 idle; 19556 ll, 19556/0 sc, 108423 sync
+sys161: 12755 irqs 25966 exns 0r/0w disk 225r/5447w console 9r/0w/3m emufs 0r/0w net
+sys161: Elapsed real time: 252.870630 seconds (25.0979 mhz)
+sys161: Elapsed virtual time: 253.865014016 seconds (25 mhz)
+bash-4.2$ quit
+bash: quit: command not found
+bash-4.2$ ei[Kxit
+exit
+
+Script done on Wednesday 17 October 2018 04:24:49 PM EDT

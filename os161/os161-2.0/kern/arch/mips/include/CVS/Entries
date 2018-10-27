@@ -1,0 +1,11 @@
+/current.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/elf.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/membar.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/specialreg.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/spinlock.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/thread.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/tlb.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/trapframe.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/types.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+/vm.h/1.1.1.1/Fri Sep  7 17:16:09 2018//
+D/kern////

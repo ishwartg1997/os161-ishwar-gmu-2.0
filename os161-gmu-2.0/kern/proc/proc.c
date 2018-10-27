@@ -37,7 +37,7 @@
  * proc structure, not while doing any significant work with the
  * things they point to. Rearrange this (and/or change it to be a
  * regular lock) as needed.
- *
+ *o
  * Unless you're implementing multithreaded user processes, the only
  * process that will have more than one thread is the kernel process.
  */
@@ -88,10 +88,14 @@ proc_create(const char *name)
 	/* VFS fields */
 	proc->p_cwd = NULL;
 	proc->p_filetable = NULL;
-	proc->proclist=kmalloc(sizeof(struct proc_list*));
-	proc->proclist->root=NULL;
-	proc->proclist->count=0;
-	proc->is_zombie=false;
+	//proc->t_listnode=kmalloc(sizeof(struct proclist_node*));
+	//proc->proc_list=kmalloc(sizeof(struct proc_list*));
+	proclistnode_init(&proc->t_listnode,proc);
+	proclist_init(&proc->proc_list);
+	
+	//proc->proclist->root=NULL;
+	//proc->proclist->count=0;
+	//proc->is_zombie=false;
 	return proc;
 }
 
@@ -181,8 +185,6 @@ proc_destroy(struct proc *proc)
 
 	threadarray_cleanup(&proc->p_threads);
 	spinlock_cleanup(&proc->p_lock);
-	struct proc_list *proclist;
-	proclist_empty(proclist);
 	kfree(proc->p_name);
 	kfree(proc);
 }
