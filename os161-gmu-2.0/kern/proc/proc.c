@@ -72,8 +72,8 @@ proc_create(const char *name)
 		return NULL;
 	}
 	proc->p_name = kstrdup(name);
-	//pid=pid+1;
-	proc->pid=pid_get();
+	proc->pid=1;
+	proc->pid=pid_get(&proc->pid);
 	if (proc->p_name == NULL) {
 		kfree(proc);
 		return NULL;

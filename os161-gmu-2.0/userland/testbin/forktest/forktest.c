@@ -81,6 +81,7 @@ check(void)
 		volatile int seenpid;
 		seenpid = mypid;
 		if (seenpid != getpid()) {
+			kprintf("HEYY BRUH YOU HAVE NO LIFE"):
 			errx(1, "pid mismatch (%d, should be %d) "
 			     "- your vm is broken!",
 			     seenpid, getpid());
