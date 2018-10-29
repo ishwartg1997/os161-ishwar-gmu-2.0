@@ -8,6 +8,7 @@ vfscwd.o: ../../vfs/vfscwd.c ../../include/types.h \
   ../../include/spinlock.h includelinks/machine/spinlock.h \
   ../../include/thread.h ../../include/array.h ../../include/threadlist.h \
   includelinks/machine/thread.h ../../include/setjmp.h \
-  includelinks/kern/machine/setjmp.h ../../include/proclist.h \
-  ../../include/current.h includelinks/machine/current.h \
-  ../../include/vfs.h ../../include/fs.h ../../include/vnode.h
+  includelinks/kern/machine/setjmp.h ../../include/synch.h \
+  ../../include/proclist.h ../../include/current.h \
+  includelinks/machine/current.h ../../include/vfs.h ../../include/fs.h \
+  ../../include/vnode.h

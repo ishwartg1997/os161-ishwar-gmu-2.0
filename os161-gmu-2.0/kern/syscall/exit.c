@@ -15,6 +15,7 @@ proc_destroy(t);
 curproc->is_zombie=true;
 exit_code=exit_code;
 lock_release(curproc->mutex);
+curproc->p_exitcode=exit_code;
 V(curproc->wait_sem);
 //spinlock_release(&curproc->p_lock);
 

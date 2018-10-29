@@ -6,8 +6,9 @@ forker.o: ../../syscall/forker.c ../../include/types.h \
   includelinks/machine/spinlock.h ../../include/thread.h \
   ../../include/array.h ../../include/threadlist.h \
   includelinks/machine/thread.h ../../include/setjmp.h \
-  includelinks/kern/machine/setjmp.h ../../include/proclist.h \
-  ../../include/current.h includelinks/machine/current.h \
-  ../../include/addrspace.h ../../include/vm.h includelinks/machine/vm.h \
-  opt-dumbvm.h ../../include/vfs.h ../../include/kern/errno.h \
-  includelinks/mips/trapframe.h ../../include/synch.h
+  includelinks/kern/machine/setjmp.h ../../include/synch.h \
+  ../../include/proclist.h ../../include/current.h \
+  includelinks/machine/current.h ../../include/addrspace.h \
+  ../../include/vm.h includelinks/machine/vm.h opt-dumbvm.h \
+  ../../include/vfs.h ../../include/kern/errno.h \
+  includelinks/mips/trapframe.h

@@ -65,6 +65,7 @@ struct proc {
 	struct proclist proc_list;
 	struct proclistnode t_listnode;
 	int pid;
+	int p_exitcode;
 	//struct threaddarray children;
 	/* add more material here as needed */
 };

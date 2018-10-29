@@ -36,5 +36,7 @@ proclist_remove(&curproc->proc_list,t);
 lock_release(curproc->mutex);
 };
 P(t->wait_sem);
+*status=t->p_exitcode;
+//pid_allocator[t->pid]=false;
 return 0;
 }

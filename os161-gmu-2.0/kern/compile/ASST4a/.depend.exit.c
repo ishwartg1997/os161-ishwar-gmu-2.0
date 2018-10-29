@@ -6,5 +6,5 @@ exit.o: ../../syscall/exit.c ../../include/types.h \
   ../../include/array.h ../../include/lib.h opt-noasserts.h \
   ../../include/threadlist.h includelinks/machine/thread.h \
   ../../include/setjmp.h includelinks/kern/machine/setjmp.h \
-  ../../include/proclist.h ../../include/current.h \
+  ../../include/synch.h ../../include/proclist.h ../../include/current.h \
   includelinks/machine/current.h ../../include/syscall.h
