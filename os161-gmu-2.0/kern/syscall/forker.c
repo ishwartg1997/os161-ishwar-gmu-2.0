@@ -31,7 +31,7 @@ kfree(newtf);
 return address_error;
 }
 struct proc **new_proc=kmalloc(sizeof(struct proc*));
-proclist_addtail((&curproc->proc_list),(*new_proc));
+//proclist_addtail((&curproc->proc_list),(*new_proc));
 process_error=proc_fork(new_proc);
 if(process_error)
 {
@@ -40,9 +40,10 @@ kfree(newtf);
 kfree(new_proc);
 return process_error;
 }
-proclist_addtail((&curproc->proc_list),(*new_proc));
+
 //KASSERT(proc_getas() == NULL);
 (*new_proc)->p_addrspace= *new_as;
+proclist_addtail((&curproc->proc_list),(*new_proc));
 thread_error=thread_fork("thread",*new_proc,enter_forked_process ,newtf,0);
 if(thread_error)
 {

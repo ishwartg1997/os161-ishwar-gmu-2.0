@@ -84,7 +84,8 @@ proc_create(const char *name)
 
 	/* VM fields */
 	proc->p_addrspace = NULL;
-	//proc->wait_sem=sem_create("Wait Sem",0);
+	proc->wait_sem=sem_create("Wait Sem",0);
+	proc->mutex=lock_create("Lock");
 	/* VFS fields */
 	proc->p_cwd = NULL;
 	proc->p_filetable = NULL;

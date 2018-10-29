@@ -59,8 +59,9 @@ struct proc {
 	struct vnode *p_cwd;		/* current working directory */
 	struct filetable *p_filetable;	/* table of open files */
 	bool is_zombie;
-	//struct semaphore *wait_sem;
+	struct semaphore *wait_sem;
 	//struct proc_list *proclist;
+	struct lock *mutex;
 	struct proclist proc_list;
 	struct proclistnode t_listnode;
 	int pid;
