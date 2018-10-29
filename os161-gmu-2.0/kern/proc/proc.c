@@ -73,7 +73,7 @@ proc_create(const char *name)
 	}
 	proc->p_name = kstrdup(name);
 	proc->pid=1;
-	proc->pid=pid_get(&proc->pid);
+	pid_get(&proc->pid);
 	if (proc->p_name == NULL) {
 		kfree(proc);
 		return NULL;
@@ -84,7 +84,7 @@ proc_create(const char *name)
 
 	/* VM fields */
 	proc->p_addrspace = NULL;
-
+	//proc->wait_sem=sem_create("Wait Sem",0);
 	/* VFS fields */
 	proc->p_cwd = NULL;
 	proc->p_filetable = NULL;

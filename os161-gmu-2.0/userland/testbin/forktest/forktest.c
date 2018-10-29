@@ -81,7 +81,6 @@ check(void)
 		volatile int seenpid;
 		seenpid = mypid;
 		if (seenpid != getpid()) {
-			kprintf("HEYY BRUH YOU HAVE NO LIFE"):
 			errx(1, "pid mismatch (%d, should be %d) "
 			     "- your vm is broken!",
 			     seenpid, getpid());
@@ -159,10 +158,10 @@ test(int nowait)
 	 * These must be called in reverse order to avoid waiting
 	 * improperly.
 	 */
-	//dowait(nowait, pid3);
-	//dowait(nowait, pid2);
-	//dowait(nowait, pid1);
-	//dowait(nowait, pid0);
+	dowait(nowait, pid3);
+	dowait(nowait, pid2);
+	dowait(nowait, pid1);
+	dowait(nowait, pid0);
 
 	putchar('\n');
 }

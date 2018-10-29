@@ -202,6 +202,9 @@ syscall(struct trapframe *tf)
 	case SYS__exit:
 	sys_exit(tf->tf_a0);
 	break;
+	case SYS_waitpid:
+	err=sys_waitpid((pid_t)tf->tf_a0,(int*)tf->tf_a1,tf->tf_a2);
+	break;
 	
 	
 	    /* Even more system calls will go here */
@@ -256,7 +259,7 @@ enter_forked_process(struct trapframe *tf)
 	tf->tf_a3=0;
 	tf->tf_v0=0;
 	tf->tf_epc+=4;
-	struct trapframe new_tf;
+	struct trapframe new_tf;	
 	bzero(&new_tf,sizeof(new_tf));
 	memcpy(&new_tf,tf,sizeof(new_tf));
 	kfree(tf);

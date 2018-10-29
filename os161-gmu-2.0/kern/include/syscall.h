@@ -58,9 +58,12 @@ __DEAD void enter_new_process(int argc, userptr_t argv, userptr_t env,
  * Note that we use userptr_t's for userspace pointers, so that there
  * isn't any confusion about what space the pointers are in.
  */
+
 void sys_exit(int exitcode);
 int sys_getpid(int *retval);
 int sys_fork(struct trapframe *tf, pid_t *retval);
+pid_t sys_waitpid(pid_t pid, int *returncode, int flags);
+
 int sys_reboot(int code);
 int sys___time(userptr_t user_seconds, userptr_t user_nanoseconds);
 

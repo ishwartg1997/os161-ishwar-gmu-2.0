@@ -19,16 +19,15 @@ int sys_fork(struct trapframe *tf,pid_t *retval)
 {
 //lock_sem=sem_create("Lock",1);
 int process_error,thread_error,address_error;
-struct trapframe *newtf;
-newtf=kmalloc(sizeof(struct trapframe));
-memcpy(newtf,tf,sizeof(struct trapframe ));
+struct trapframe *newtf=kmalloc(sizeof(*tf));
+memcpy(newtf,tf,sizeof(*tf));
 struct addrspace *as=proc_getas();
-struct addrspace **new_as;
-new_as=kmalloc(sizeof(struct addrspace*));
+struct addrspace **new_as=kmalloc(sizeof(struct addrspace*));
 address_error=as_copy(as,new_as);
 if(address_error)
 {
 kfree(newtf);
+
 return address_error;
 }
 struct proc **new_proc=kmalloc(sizeof(struct proc*));
@@ -38,8 +37,10 @@ if(process_error)
 {
 kfree(new_as);
 kfree(newtf);
+kfree(new_proc);
 return process_error;
 }
+proclist_addtail((&curproc->proc_list),(*new_proc));
 //KASSERT(proc_getas() == NULL);
 (*new_proc)->p_addrspace= *new_as;
 thread_error=thread_fork("thread",*new_proc,enter_forked_process ,newtf,0);
