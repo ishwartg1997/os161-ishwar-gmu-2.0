@@ -93,6 +93,7 @@ SRCS.PLATFORM.sys161+=$(KTOP)/arch/mips/locore/exception-mips1.S
 SRCS.PLATFORM.sys161+=$(KTOP)/arch/mips/vm/tlb-mips161.S
 SRCS.PLATFORM.sys161+=$(KTOP)/arch/sys161/dev/lamebus_machdep.c
 SRCS.PLATFORM.sys161+=$(KTOP)/arch/sys161/main/start.S
+SRCS+=$(KTOP)/syscall/execv.c
 SRCS+=$(KTOP)/syscall/exit.c
 SRCS+=$(KTOP)/syscall/file_syscalls.c
 SRCS+=$(KTOP)/syscall/filetable.c

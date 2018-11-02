@@ -58,7 +58,7 @@ __DEAD void enter_new_process(int argc, userptr_t argv, userptr_t env,
  * Note that we use userptr_t's for userspace pointers, so that there
  * isn't any confusion about what space the pointers are in.
  */
-
+int sys_execv(char *progname,char **args);
 void sys_exit(int exitcode);
 int sys_getpid(int *retval);
 int sys_fork(struct trapframe *tf, pid_t *retval);

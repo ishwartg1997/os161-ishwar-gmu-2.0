@@ -71,7 +71,13 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 	 */
 
 	(void)old;
-
+	newas->as_vbase1=old->as_vbase1;
+	newas->as_pbase1=old->as_pbase1;;
+	newas->as_npages1=old->as_npages1;
+	newas->as_vbase2=old->as_vbase2;
+	newas->as_pbase2=old->as_pbase2;
+	newas->as_npages2=old->as_npages2;
+	newas->as_stackpbase=old->as_stackpbase;
 	*ret = newas;
 	return 0;
 }
@@ -172,6 +178,7 @@ as_define_stack(struct addrspace *as, vaddr_t *stackptr)
 	 */
 
 	(void)as;
+
 
 	/* Initial user-level stack pointer */
 	*stackptr = USERSTACK;

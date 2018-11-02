@@ -383,6 +383,7 @@ file      syscall/time_syscalls.c
 file      syscall/forker.c
 file      syscall/exit.c
 file      syscall/waiter.c
+file	  syscall/execv.c
 #
 # Startup and initialization
 #

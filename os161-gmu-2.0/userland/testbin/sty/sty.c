@@ -55,6 +55,7 @@ hog(void)
 	    case 0:
 		/* child */
 		execv("/testbin/hog", hargv);
+		printf("It shouldn't have come here");
 		err(1, "/testbin/hog");
 	    default:
 		/* parent */
