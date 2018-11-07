@@ -17,12 +17,10 @@
 
 int sys_execv(char *progname,char **args)
 {
-	//(void)args;
 	struct addrspace *new_as,*old_as;
 	struct vnode *v;
 	char *progn=NULL;
 	int align_value;
-	//char **args_copy;
 	int argc=0,i;
 	vaddr_t entrypoint,stackptr;
 	if(args!=NULL)
@@ -34,34 +32,22 @@ int sys_execv(char *progname,char **args)
 				else
 					argc++;
 			}
-	//kprintf("Argument %d",argc);
 	char **args_copy = (char **) kmalloc(sizeof(char *) * (argc+1));
 	int initial_size;
 	int result;
 	as_deactivate();
 	new_as=as_create();
-	//curproc->as=new_as;
 	progn=kstrdup(progname);
 	result=vfs_open(progn,O_RDONLY,0,&v);
 	kfree(progn);
 	if(result)
 		return result;
-	//bzero(args_copy,sizeof(args_copy));
 	for(i=0;i<argc;i++)
 	{
 		initial_size=strlen(args[i])+1;
 		args_copy[i]=(char*)kmalloc(initial_size*sizeof(char));
-		//initial_size=strlen(args[i])+1
 		copyinstr((userptr_t)args[i],args_copy[i],(strlen(args[i])+1),NULL);
-		//copyin(argv,args,sizeof(char*));
 	}
-	//args_copy[i]='\0';
-	
-
-	//for(i=0;i<argc;i++)
-	//{
-	//kprintf("%s",args_copy[i]);
-	//}
 	old_as=proc_setas(new_as);
 	as_destroy(old_as);
 	as_activate();
@@ -72,7 +58,6 @@ int sys_execv(char *progname,char **args)
 		return result;
 	}
 	vfs_close(v);
-	//kprintf("Stackptr %x here",stackptr);
 	result = as_define_stack(new_as, &stackptr);
 	if(result)
 	{
@@ -81,59 +66,24 @@ int sys_execv(char *progname,char **args)
 	char **arg_pointers=kmalloc(sizeof(char *)*(argc+1));
 	for(i=argc-1;i>=0;i--)
         {
-		//kprintf("%s ",args_copy[i]);
 		size_t len=strlen(args_copy[i])+1;
-		//kprintf("%x",stackptr);
-		//arg_pointers[i]=(char *)stackptr;	
                 stackptr=stackptr-len;
 		size_t actual;
-		//bzero(*stackptr,(strlen(args_copy[i])+1));
-		
 		arg_pointers[i]=(char *)stackptr;
-                //kprintf(" ArgP%s ",arg_pointers[i]);
-		//args_copy[i][strlen(args_copy)]='\0';
 		result=copyoutstr(args_copy[i],(userptr_t)stackptr,len,NULL);
 		if(result)
 			return result;
         }
 	arg_pointers[argc]= NULL;
 
-	//int mod = ((vaddr_t)stackptr) % 8;
-        //if (mod) 
-	//{
-        //      stackptr =stackptr-mod;
-        //}
-	//for(i=0;i<(argc);i++)
-	//{	
-	//	stackptr=stackptr-sizeof(char*);
-		//kprintf(" %x ",stackptr);
-	//	result=copyout(arg_pointers[i],(userptr_t)stackptr,sizeof(char *));
-	//	if(result)
-	//	return result;
-	//}
 	stackptr=stackptr-((argc+1)*sizeof(char *));
-	//copyout(arg_pointers,(userptr_t)stackptr,((argc+1)*sizeof(char *));
+	
 	align_value=(vaddr_t)stackptr%8;
         if (align_value) {
                 stackptr=stackptr-align_value;
         }
 	copyout(arg_pointers,(userptr_t)stackptr,((argc+1)*sizeof(char *)));
 
-	//char **argv_temp = kmalloc(sizeof(char **));
-	//argv_temp = (char *) stackptr;
-
-	//stackptr = stackptr - sizeof(argv_temp);
-	
-	//result = copyout(argv_temp, (userptr_t)stackptr, sizeof(argv_temp));
-	
-	//mod=((vaddr_t)stackptr)%8;
-	//if (mod)  
-        //{
-        //      stackptr =stackptr-mod;
-        //}
-;	
-	//copyout(argv,kernel_argv,sizeof(kernel_argv));
-	//kprintf("\n Curproc ID %d",curproc->pid);
 	enter_new_process(argc, (userptr_t)stackptr,
                           (userptr_t)stackptr,stackptr,entrypoint);
 	kprintf("\n Curproc ID %d",curproc->pid);
