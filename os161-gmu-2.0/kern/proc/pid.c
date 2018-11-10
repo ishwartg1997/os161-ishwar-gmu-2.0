@@ -14,7 +14,7 @@ void pid_initialize()
 	pid_lock=lock_create("Process ID");
 	for(int i=0;i<PID_MAX;i++)
 	pid_allocator[i]=false;
-	start_pid=PID_MIN-1;
+	start_pid=PID_MIN;
 }
 
 int pid_get(pid_t *ret)
@@ -27,12 +27,12 @@ int pid_get(pid_t *ret)
 	{
 		i=i+1;
 		if(i==PID_MAX)
-			i=PID_MIN-1;
+			i=PID_MIN;
 	}
 	pid_allocator[i]=true;
 	*ret=i;
 	proc_counter++;
-	start_pid=i;
+	//start_pid=i;
 	}
 	else
 	{

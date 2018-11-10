@@ -11,6 +11,7 @@
 #include<thread.h>
 #include<mips/trapframe.h>
 #include<syscall.h>
+#include<pid.h>
 #include<synch.h>
 
 pid_t sys_waitpid(pid_t pid,int *status,int options)

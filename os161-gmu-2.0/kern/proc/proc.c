@@ -96,7 +96,7 @@ proc_create(const char *name)
 	
 	//proc->proclist->root=NULL;
 	//proc->proclist->count=0;
-	//proc->is_zombie=false;
+	proc->is_zombie=false;
 	return proc;
 }
 
