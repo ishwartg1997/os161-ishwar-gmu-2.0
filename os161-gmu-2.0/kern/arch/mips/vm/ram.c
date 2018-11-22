@@ -37,11 +37,12 @@ vaddr_t firstfree;   /* first free virtual address; set by start.S */
 
 static paddr_t firstpaddr;  /* address of first free physical page */
 static paddr_t lastpaddr;   /* one past end of last free physical page */
-
+struct coremap_node *coremap;
 /*
  * Called very early in system boot to figure out how much physical
  * RAM is available.
  */
+
 void
 ram_bootstrap(void)
 {
@@ -72,6 +73,7 @@ ram_bootstrap(void)
 	kprintf("%uk physical memory available\n",
 		(lastpaddr-firstpaddr)/1024);
 }
+
 
 /*
  * This function is for allocating physical memory prior to VM
@@ -129,6 +131,27 @@ ram_getsize(void)
 {
 	return lastpaddr;
 }
+
+void coremap_initialize(void)
+{
+	kprintf("Hello");
+        int coremap_size=ram_getsize()/PAGE_SIZE;
+	paddr_t coremap_addr=ram_stealmem(coremap_size);
+	coremap=PADDR_TO_KVADDR(coremap_addr);
+	for(int i=0;i<coremap_size;i++)
+        {
+                (*(coremap+i)).is_free=false;
+		(*(coremap+i)).is_reserved=false;
+        }
+	int first=ram_getfirstfree()/PAGE_SIZE;
+	for(int i=0;i<first;i++)
+	{
+		(*(coremap+i)).is_reserved=true;
+		(*(coremap+i)).is_free=false;
+	}
+	
+}
+
 
 /*
  * This function is intended to be called by the VM system when it
