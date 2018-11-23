@@ -1,14 +1,18 @@
 #include<types.h>
 #include <lib.h>
+#include<addrspace.h>
+#include<proc.h>
+#include<current.h>
 #include<vm.h>
 #include <mainbus.h>
 #include<coremap.h>
 
 struct coremap_node *coremap;
+int memory_size;
 void coremap_initialize()
 {
         paddr_t ram_size=ram_getsize();
-        int memory_size=ram_size/PAGE_SIZE;
+        memory_size=ram_size/PAGE_SIZE;
 	int i;
         int coremap_size=(memory_size*sizeof(*coremap))/PAGE_SIZE;
 	if((sizeof(coremap)*memory_size)%PAGE_SIZE>0)
@@ -32,29 +36,42 @@ void coremap_initialize()
         }
 }
 
-/*paddr_t
+void
 coremap_allocate(unsigned long npages)
 {
         size_t size;
         paddr_t paddr;
-	int alloc_count=0;
-
-        for(i=0;i<coremap_pages;i++)
+	int alloc_count=0,i;
+	struct addrspace *cur_as=proc_getas();
+	struct node *page_table=cur_as->page_table;
+	struct node *traverse=cur_as->page_table;
+        for(i=0;i<memory_size;i++)
 	{
 		if(alloc_count==npages)
 			break;
 		if(coremap[i].is_free==true&&coremap[i].is_reserved==false)
 		{
+			struct node *temp;
+			temp->index=i;
+                        temp->next=NULL;
+			if(traverse==NULL)
+			{
+				traverse=temp;
+			}
+			else
+			{
+				traverse->next=temp;
+				traverse=traverse->next;
+			}
 			alloc_count+=1;
 			coremap[i].is_free=false;
 		}	
 	}
 
-        paddr = firstpaddr;
-        firstpaddr += size;
-
-        return paddr;
+        //paddr = firstpaddr;
+        //firstpaddr += size;
+	curproc->p_addrspace->page_table=page_table;
 }
 
-*/
+
 
