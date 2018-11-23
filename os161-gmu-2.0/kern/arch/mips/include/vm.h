@@ -123,11 +123,11 @@ struct tlbshootdown {
 	int ts_placeholder;
 };
 
-struct coremap_node{
+/*struct coremap_node{
 bool is_free;
 bool is_reserved;
-};
-void coremap_initialize(void);
+}*coremap;
+void coremap_initialize(void);*/
 #define TLBSHOOTDOWN_MAX 16
 
 
