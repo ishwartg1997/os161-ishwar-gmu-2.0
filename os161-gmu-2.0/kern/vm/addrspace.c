@@ -210,12 +210,17 @@ vm_fault(int faulttype, vaddr_t faultaddress)
 		tlb_write(ehi, elo, i);
 		splx(spl);
 		return 0;
+	
 	}
-	tlb_random(ehi,elo);
+	int val=tlb_probe(ehi,elo);
+	if(val<0)
+		tlb_random(ehi,elo);
+	else
+		tlb_write(100000000000,1000000000,val);
 
-	kprintf("dumbvm: Ran out of TLB entries - cannot handle page fault\n");
+	//kprintf("dumbvm: Ran out of TLB entries - cannot handle page fault\n");
 	splx(spl);
-	return EFAULT;
+	return 0;
 }
 
 struct addrspace *
