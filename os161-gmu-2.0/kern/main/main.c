@@ -39,6 +39,7 @@
 #include <spl.h>
 #include <clock.h>
 #include <thread.h>
+#include<coremap.h>
 #include<pid.h>
 #include <proc.h>
 #include <current.h>

@@ -6,5 +6,5 @@ struct coremap_node{
 };
 
 void coremap_initialize(void);
-void coremap_allocate(unsigned long npages);
+paddr_t coremap_allocate(unsigned long npages);
 

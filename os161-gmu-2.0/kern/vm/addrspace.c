@@ -32,6 +32,7 @@
 #include <lib.h>
 #include <spl.h>
 #include <spinlock.h>
+#include<coremap.h>
 #include <proc.h>
 #include <current.h>
 #include <mips/tlb.h>
@@ -74,10 +75,9 @@ paddr_t
 getppages(unsigned long npages)
 {
 	paddr_t addr;
-
 	spinlock_acquire(&stealmem_lock);
 
-	addr = ram_stealmem(npages);
+	addr=coremap_allocate(npages);
 
 	spinlock_release(&stealmem_lock);
 	return addr;

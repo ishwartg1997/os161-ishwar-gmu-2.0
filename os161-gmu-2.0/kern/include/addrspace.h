@@ -51,7 +51,7 @@ struct vnode;
 struct node{
 	struct node *next;
 	int index;
-	};
+};
 struct addrspace {
 #if OPT_DUMBVM
         vaddr_t as_vbase1;
