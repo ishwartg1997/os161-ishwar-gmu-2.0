@@ -30,17 +30,23 @@ void coremap_initialize()
 	if((coremap_addr%PAGE_SIZE)>0)
 		used++;
 	//coremap_size=memory_size;
-        for(i=0;i<coremap_size;i++)
+        for(i=0;i<used;i++)
+        {
+                (*(coremap+i)).is_reserved=true;
+                (*(coremap+i)).is_free=false;
+        }
+
+	for(i=used;i<(memory_size-coremap_size);i++)
         {
                 (*(coremap+i)).is_free=true;
                 (*(coremap+i)).is_reserved=false;
         }
         //int first=ram_getfirstfree()/PAGE_SIZE;
-	for(i=0;i<used;i++)
+	/*for(i=0;i<used;i++)
         {
                 (*(coremap+i)).is_reserved=true;
                 (*(coremap+i)).is_free=false;
-        }
+        }*/
 	coremap_curr=used;
 }
 
@@ -53,27 +59,32 @@ coremap_allocate(unsigned long npages)
 	//struct addrspace *cur_as=proc_getas();
 	//struct node *page_table=cur_as->page_table;
 	//struct node *traverse=cur_as->page_table;
-	int return_value=((coremap_curr)*PAGE_SIZE);
-	coremap_curr=coremap_curr+npages;
+	//int return_value=((coremap_curr)*PAGE_SIZE);
+	//coremap_curr=coremap_curr+npages;
 	//if(coremap_curr>=+memory_size)
 	//	coremap_curr=used;
-	return ((paddr_t)(return_value));
-       	 /*
+	//return ((paddr_t)(return_value));
+       	 
 	for(i=used;i<memory_size;i++)
 	{
 		
-		if(alloc_count==npages)
+		if(alloc_count>=npages)
 		{
 			for(int j=(i-npages);j<i;j++)
 				coremap[j].is_free=false;
 			 //used=i;
-			 return ((i-npages)*PAGE_SIZE);
+			 return ((paddr_t)((i-npages)*PAGE_SIZE));
 			
 			//return i;
 		}
+		if(coremap[i].is_free==false)
+                {
+                        alloc_count=0;
+                }
+
 		if(coremap[i].is_free==true)
 		{
-			struct node *temp;
+			/*struct node *temp;
 			temp->index=i;
                         temp->next=NULL;
 			if(traverse==NULL)
@@ -84,21 +95,21 @@ coremap_allocate(unsigned long npages)
 			{
 				traverse->next=temp;
 				traverse=traverse->next;
-			}
+			}*/
 			alloc_count+=1;
 			coremap[i].is_free=false;
 		}
-		if(coremap[i].is_free==false)
-		{
-			alloc_count=0;
-		}
+		//if(coremap[i].is_free==false)
+		//{
+		//	alloc_count=0;
+		//}
 	}
 
         //paddr = firstpaddr;
         //firstpaddr += size;
 	//curproc->p_addrspace->page_table=page_table;
 	//return ((i-npages)*PAGE_SIZE);
-	return 0;*/
+	return 0;
 }
 
 

@@ -78,7 +78,7 @@ getppages(unsigned long npages)
 	spinlock_acquire(&stealmem_lock);
 
 	addr=coremap_allocate(npages);
-
+	//addr=ram_stealmem(npages);
 	spinlock_release(&stealmem_lock);
 	return addr;
 }
