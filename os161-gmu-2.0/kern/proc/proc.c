@@ -86,16 +86,13 @@ proc_create(const char *name)
 	proc->p_addrspace = NULL;
 	proc->wait_sem=sem_create("Wait Sem",0);
 	proc->mutex=lock_create("Lock");
+	
 	/* VFS fields */
 	proc->p_cwd = NULL;
 	proc->p_filetable = NULL;
-	//proc->t_listnode=kmalloc(sizeof(struct proclist_node*));
-	//proc->proc_list=kmalloc(sizeof(struct proc_list*));
 	proclistnode_init(&proc->t_listnode,proc);
 	proclist_init(&proc->proc_list);
 	
-	//proc->proclist->root=NULL;
-	//proc->proclist->count=0;
 	proc->is_zombie=false;
 	return proc;
 }

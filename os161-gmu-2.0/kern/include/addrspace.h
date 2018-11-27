@@ -48,10 +48,10 @@ struct vnode;
  * You write this.
  */
 
-struct node{
+/*struct node{
 	struct node *next;
 	int index;
-};
+};*/
 struct addrspace {
 #if OPT_DUMBVM
         vaddr_t as_vbase1;
@@ -70,7 +70,7 @@ struct addrspace {
         paddr_t as_pbase2;
         size_t as_npages2;
         paddr_t as_stackpbase;
-	struct node *page_table;
+	//struct node *page_table;
 #endif
 };
 

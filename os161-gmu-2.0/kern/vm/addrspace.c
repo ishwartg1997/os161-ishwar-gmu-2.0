@@ -76,9 +76,7 @@ getppages(unsigned long npages)
 {
 	paddr_t addr;
 	spinlock_acquire(&stealmem_lock);
-
 	addr=coremap_allocate(npages);
-	//addr=ram_stealmem(npages);
 	spinlock_release(&stealmem_lock);
 	return addr;
 }
@@ -99,8 +97,21 @@ void
 free_kpages(vaddr_t addr)
 {
 	/* nothing - leak the memory. */
-
-	(void)addr;
+	paddr_t physical_address=addr-MIPS_KSEG0;
+	int page_number=physical_address/PAGE_SIZE;
+	if(physical_address%PAGE_SIZE>0)
+		page_number++;
+	int free_limit=page_number+coremap[page_number].chunk_size;
+	for(int i=page_number;i<free_limit;i++)
+	{
+	coremap[i].is_free=true;
+	coremap[i].chunk_size=0;
+	if(coremap[i].chunk_size==1)
+	{
+	break;
+	}
+	}
+	
 }
 
 void
