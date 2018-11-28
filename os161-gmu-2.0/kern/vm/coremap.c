@@ -45,7 +45,7 @@ void coremap_initialize()
 paddr_t coremap_allocate(unsigned long npages)
 {
 	int alloc_count=0,i;
-	
+	int copy=used;
 	for(i=used;i<memory_size;i++)
 	{
 		

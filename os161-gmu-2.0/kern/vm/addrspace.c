@@ -144,7 +144,8 @@ vm_fault(int faulttype, vaddr_t faultaddress)
 	switch (faulttype) {
 	    case VM_FAULT_READONLY:
 		/* We always create pages read-write, so we can't get this */
-		panic("dumbvm: got VM_FAULT_READONLY\n");
+		return EPERM;
+		//panic("dumbvm: got VM_FAULT_READONLY\n");
 	    case VM_FAULT_READ:
 	    case VM_FAULT_WRITE:
 		break;
@@ -190,12 +191,16 @@ vm_fault(int faulttype, vaddr_t faultaddress)
 	vtop2 = vbase2 + as->as_npages2 * PAGE_SIZE;
 	stackbase = USERSTACK - DUMBVM_STACKPAGES * PAGE_SIZE;
 	stacktop = USERSTACK;
-
+	int read_only=0;
 	if (faultaddress >= vbase1 && faultaddress < vtop1) {
 		paddr = (faultaddress - vbase1) + as->as_pbase1;
+		if((as->final_privilege1==4||as->final_privilege1==5))
+			read_only=1;
 	}
 	else if (faultaddress >= vbase2 && faultaddress < vtop2) {
 		paddr = (faultaddress - vbase2) + as->as_pbase2;
+		if((as->final_privilege2==4||as->final_privilege2==5))
+                        read_only=1;
 	}
 	else if (faultaddress >= stackbase && faultaddress < stacktop) {
 		paddr = (faultaddress - stackbase) + as->as_stackpbase;
@@ -216,7 +221,9 @@ vm_fault(int faulttype, vaddr_t faultaddress)
 			continue;
 		}
 		ehi = faultaddress;
-		elo = paddr | TLBLO_DIRTY | TLBLO_VALID;
+		elo = paddr |TLBLO_VALID;
+		if(!read_only)
+			elo=elo|TLBLO_DIRTY;
 		DEBUG(DB_VM, "dumbvm: 0x%x -> 0x%x\n", faultaddress, paddr);
 		tlb_write(ehi, elo, i);
 		splx(spl);
@@ -249,7 +256,10 @@ as_create(void)
 	as->as_pbase2 = 0;
 	as->as_npages2 = 0;
 	as->as_stackpbase = 0;
-
+	as->temp_privilege1=0;
+	as->temp_privilege2=0;
+	as->final_privilege1=0;
+	as->final_privilege2=0;
 	return as;
 }
 
@@ -302,19 +312,21 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t sz,
 	npages = sz / PAGE_SIZE;
 
 	/* We don't use these - all pages are read-write */
-	(void)readable;
-	(void)writeable;
-	(void)executable;
-
+	//(void)readable;
+	//(void)writeable;
+	//(void)executable;
+	int privilege=readable|writeable|executable;
 	if (as->as_vbase1 == 0) {
 		as->as_vbase1 = vaddr;
 		as->as_npages1 = npages;
+		as->temp_privilege1=privilege;
 		return 0;
 	}
 
 	if (as->as_vbase2 == 0) {
 		as->as_vbase2 = vaddr;
 		as->as_npages2 = npages;
+		as->temp_privilege2=privilege;
 		return 0;
 	}
 
@@ -364,7 +376,9 @@ as_prepare_load(struct addrspace *as)
 int
 as_complete_load(struct addrspace *as)
 {
-	(void)as;
+	//(void)as;
+	as->final_privilege1=as->temp_privilege1;
+	as->final_privilege2=as->temp_privilege2;
 	return 0;
 }
 
