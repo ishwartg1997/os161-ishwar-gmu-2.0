@@ -1,5 +1,6 @@
 #include<types.h>
 #include <lib.h>
+
 #include<addrspace.h>
 #include<proc.h>
 #include<current.h>
@@ -41,8 +42,7 @@ void coremap_initialize()
 	coremap_curr=used;
 }
 
-paddr_t
-coremap_allocate(unsigned long npages)
+paddr_t coremap_allocate(unsigned long npages)
 {
 	int alloc_count=0,i;
 	
