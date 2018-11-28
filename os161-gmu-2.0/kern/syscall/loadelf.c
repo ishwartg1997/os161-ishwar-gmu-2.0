@@ -216,8 +216,15 @@ load_elf(struct vnode *v, vaddr_t *entrypoint)
 	 * might have a larger structure, so we must use e_phentsize
 	 * to find where the phdr starts.
 	 */
+	as->no_of_segments=eh.e_phnum-1;
+	as->page_table=kmalloc((sizeof(struct pte)*as->no_of_segments));
 
 	for (i=0; i<eh.e_phnum; i++) {
+		as->page_table[i].as_vbase = 0;
+        	as->page_table[i].as_pbase = 0;
+        	as->page_table[i].as_npages = 0;
+		as->page_table[i].temp_privilege=0;
+		as->page_table[i].final_privilege=0;
 		off_t offset = eh.e_phoff + i*eh.e_phentsize;
 		uio_kinit(&iov, &ku, &ph, sizeof(ph), offset, UIO_READ);
 
